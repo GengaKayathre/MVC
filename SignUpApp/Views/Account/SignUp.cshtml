@@ -1,0 +1,17 @@
+@model SignUpApp.Models.User
+
+<form asp-action="SignUp" method="post">
+    <div>
+        <label asp-for="Username"></label>
+        <input asp-for="Username" />
+    </div>
+    <div>
+        <label asp-for="Password"></label>
+        <input asp-for="Password" />
+    </div>
+    <div>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" />
+    </div>
+    <button type="submit" >Sign Up</button>
+</form>
