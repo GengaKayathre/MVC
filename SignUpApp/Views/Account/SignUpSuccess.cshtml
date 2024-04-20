@@ -1,0 +1,28 @@
+@{
+    ViewData["Title"] = "Sign Up Success";
+}
+
+<h2>Thank you for signing up, please log in to continue</h2>
+
+<div>
+    <form id="loginForm" method="post" action="/Account/Login">
+        <div>
+            <label for="usernameOrEmail">Username or Email:</label>
+            <input type="text" id="usernameOrEmail" name="usernameOrEmail" required>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div>
+            <button type="button" onclick="submitLoginForm()">Login</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    function submitLoginForm() {
+        var form = document.getElementById('loginForm');
+        form.submit();
+    }
+</script>
