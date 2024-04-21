@@ -7,6 +7,7 @@ using System.Text.Json;
 
 namespace SignUpApp.Controllers
 {
+    [Route("Account")]
     public class AccountController : Controller
     {
         private string _jsonFilePath = "user.json";
@@ -15,7 +16,7 @@ namespace SignUpApp.Controllers
         {
             return View();
         }
-
+        [Route("Account/SignUp")]
         [HttpPost]
         public IActionResult SignUp(User user)
         {
@@ -53,6 +54,7 @@ namespace SignUpApp.Controllers
             return View();
         }
 
+        [Route("Account/SignUpSuccess")]
         [HttpPost]
         public IActionResult Login(string usernameOrEmail, string password)
         {

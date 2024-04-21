@@ -1,22 +1,17 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace SignUpApp.Models
 {
     public class User
     {
+        [Required(ErrorMessage = "Username is required")]
         public string Username { get; set; }
-        public string Password { get; set; }
-        public string Email { get; set; }
 
-    public User() 
-    {
-        Username = "";
-        Password = "";
-        Email = "";
-    }
-        public User(string username, string password, string email)
-        {
-            Username = username;
-            Password = password;
-            Email = email;
-        }
+        [Required(ErrorMessage = "Password is required")]
+        public string Password { get; set; }
+
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "Invalid email address")]
+        public string Email { get; set; }
     }
 }

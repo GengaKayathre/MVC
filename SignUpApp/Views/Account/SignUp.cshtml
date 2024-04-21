@@ -1,17 +1,59 @@
 @model SignUpApp.Models.User
 
-<form asp-action="SignUp" method="post">
+<form asp-action="SignUp" method="post" onsubmit="return validateForm()">
     <div>
         <label asp-for="Username"></label>
-        <input asp-for="Username" />
+        <input asp-for="Username" id="username" />
+        <span id="usernameError" style="color: red; display: none;"></span>
     </div>
     <div>
         <label asp-for="Password"></label>
-        <input asp-for="Password" />
+        <input asp-for="Password" type="password" id="password" />
+        <span id="passwordError" style="color: red; display: none;"></span>
     </div>
     <div>
         <label asp-for="Email"></label>
-        <input asp-for="Email" />
+        <input asp-for="Email" id="email" />
+        <span id="emailError" style="color: red; display: none;"></span>
     </div>
-    <button type="submit" >Sign Up</button>
+    <button type="submit">Sign Up</button>
 </form>
+
+<script>
+    function validateForm() {
+        var username = document.getElementById('username').value.trim();
+        var password = document.getElementById('password').value.trim();
+        var email = document.getElementById('email').value.trim();
+
+        if (username === "") {
+            document.getElementById('usernameError').innerText = "Username is required";
+            document.getElementById('usernameError').style.display = "block";
+            return false;
+        } else if (username.includes(" ")) {
+            document.getElementById('usernameError').innerText = "Username should not contain spaces";
+            document.getElementById('usernameError').style.display = "block";
+            return false;
+        } else {
+            document.getElementById('usernameError').style.display = "none";
+        }
+
+        if (!(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$!%*#?&])[A-Za-z\d$!%*#?&]{10,}$/.test(password))) {
+            document.getElementById('passwordError').innerText = "Password should contain at least 10 characters including a number and a special character";
+            document.getElementById('passwordError').style.display = "block";
+            return false;
+        } else {
+            document.getElementById('passwordError').style.display = "none";
+        }
+
+        if (!(/^\S+\S+\.\S+$/.test(email))) {
+            document.getElementById('emailError').innerText = "Invalid email format";
+            document.getElementById('emailError').style.display = "block";
+            return false;
+        } else {
+            document.getElementById('emailError').style.display = "none";
+        }
+
+        return true; 
+    }
+</script>
+
