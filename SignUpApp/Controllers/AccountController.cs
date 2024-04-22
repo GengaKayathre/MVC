@@ -16,7 +16,7 @@ namespace SignUpApp.Controllers
         {
             return View();
         }
-        [Route("Account/SignUp")]
+        [Route("SignUp")]
         [HttpPost]
         public IActionResult SignUp(User user)
         {
@@ -40,10 +40,10 @@ namespace SignUpApp.Controllers
             var jsonUsers = JsonSerializer.Serialize(users);
             System.IO.File.WriteAllText(_jsonFilePath, jsonUsers);
 
-            return RedirectToAction("SignUpSuccess");
+            return RedirectToAction("doLogin");
         }
 
-        public IActionResult SignUpSuccess()
+        public IActionResult doLogin()
         {
             string message = "Thank you for signing up!";
             ViewBag.SuccessMessage = message;
@@ -54,8 +54,8 @@ namespace SignUpApp.Controllers
             return View();
         }
 
-        [Route("Account/SignUpSuccess")]
-        [HttpPost]
+        [Route("Login")]
+        [HttpGet]
         public IActionResult Login(string usernameOrEmail, string password)
         {
             List<User> users;

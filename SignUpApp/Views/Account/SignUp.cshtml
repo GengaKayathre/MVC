@@ -37,7 +37,7 @@
             document.getElementById('usernameError').style.display = "none";
         }
 
-        if (!(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$!%*#?&])[A-Za-z\d$!%*#?&]{10,}$/.test(password))) {
+        if (!(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$!%*#?&])[A-Za-z\d$!@%*#?&]{8,}$/.test(password))) {
             document.getElementById('passwordError').innerText = "Password should contain at least 10 characters including a number and a special character";
             document.getElementById('passwordError').style.display = "block";
             return false;
@@ -45,7 +45,7 @@
             document.getElementById('passwordError').style.display = "none";
         }
 
-        if (!(/^\S+\S+\.\S+$/.test(email))) {
+        if (!(/^\S+\S+\.\S+$@/.test(email))) {
             document.getElementById('emailError').innerText = "Invalid email format";
             document.getElementById('emailError').style.display = "block";
             return false;
