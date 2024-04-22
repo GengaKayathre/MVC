@@ -1,23 +1,51 @@
 @model SignUpApp.Models.User
+@{
+    ViewBag.Title = "SignUp";
+    
+}
+<div class="row justify-content-md-center">
+    <div class="col-md-5">
+        @using (Html.BeginForm("SignUp", "Account", FormMethod.Post))
+        {
+            //@Html.ValidationSummary()
+            @Html.AntiForgeryToken()
 
-<form asp-action="SignUp" method="post" onsubmit="return validateForm()">
-    <div>
-        <label asp-for="Username"></label>
-        <input asp-for="Username" id="username" />
-        <span id="usernameError" style="color: red; display: none;"></span>
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Register</div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Username)
+                        @Html.TextBoxFor(m => m.Username, "", new { @class = "form-control", @placeholder = "First Name" })
+                        @Html.ValidationMessageFor(m => m.Username, "", new { @class = "badge badge-danger" })
+                    </div>
+                    
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email)
+                        @Html.TextBoxFor(m => m.Email, "", new { @class = "form-control", @placeholder = "Email" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "badge badge-danger" })
+                        @if (ViewBag.error != null)
+                        {
+                            <span class="badge badge-danger">@ViewBag.error</span>
+                        }
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password)
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "badge badge-danger" })
+                    </div>
+                    <div>
+                    <div class="form-group">
+                        <input type="submit" onclick="validateForm()" name="submit" class="btn btn-danger" value="Register"/>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+        }
     </div>
-    <div>
-        <label asp-for="Password"></label>
-        <input asp-for="Password" type="password" id="password" />
-        <span id="passwordError" style="color: red; display: none;"></span>
-    </div>
-    <div>
-        <label asp-for="Email"></label>
-        <input asp-for="Email" id="email" />
-        <span id="emailError" style="color: red; display: none;"></span>
-    </div>
-    <button type="submit" onclick="validateForm()">Sign Up</button>
-</form>
+</div>
 
 <script>
     function validateForm() {
@@ -37,7 +65,7 @@
             document.getElementById('usernameError').style.display = "none";
         }
 
-        if (!(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$!%*#?&])[A-Za-z\d$!@%*#?&]{8,}$/.test(password))) {
+        if (!(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$!%*#?&])[A-Za-z\d$!%*#?&]{10,}$/.test(password))) {
             document.getElementById('passwordError').innerText = "Password should contain at least 10 characters including a number and a special character";
             document.getElementById('passwordError').style.display = "block";
             return false;
@@ -45,7 +73,7 @@
             document.getElementById('passwordError').style.display = "none";
         }
 
-        if (!(/^\S+\S+\.\S+$@/.test(email))) {
+        if (!(/^\S+\S+\.\S+$/.test(email))) {
             document.getElementById('emailError').innerText = "Invalid email format";
             document.getElementById('emailError').style.display = "block";
             return false;
